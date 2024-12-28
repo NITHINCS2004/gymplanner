@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00BFA5"
+    android:backgroundTint="#CEC89E"
+    tools:context=".GymPlannerActivity">
+
+    <!-- Welcome Text Section -->
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="294dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="Welcome to Gym Planner Website"
+        android:textColor="#AD5539"
+        android:textSize="34sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Image View for the logo -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="194dp"
+        android:layout_height="163dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.926"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.169" />
+
+    <!-- Chip for Workout Plans -->
+    <com.google.android.material.chip.Chip
+        android:id="@+id/workout"
+        android:layout_width="202dp"
+        android:layout_height="50dp"
+        android:background="#FFE57F"
+        android:backgroundTint="#00C853"
+        android:text=" WORKOUT PLANS"
+        android:textColor="#D81B60"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.565" />
+
+    <!-- Chip for Diet Plans -->
+    <com.google.android.material.chip.Chip
+        android:id="@+id/diet"
+        android:layout_width="198dp"
+        android:layout_height="55dp"
+        android:background="#22B36C"
+        android:backgroundTint="#00C853"
+        android:text="    DIET PLANS"
+        android:textColor="#BF1111"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.412" />
+
+    <!-- Chip for Contact Us -->
+    <com.google.android.material.chip.Chip
+        android:id="@+id/progress"
+        android:layout_width="212dp"
+        android:layout_height="55dp"
+        android:background="#00C853"
+        android:backgroundTint="#00C853"
+        android:text="     CONTACT US"
+        android:textColor="#D50000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.643" />
+
+    <!-- Chip for Healthy Tips -->
+    <com.google.android.material.chip.Chip
+        android:id="@+id/healthy"
+        android:layout_width="221dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#00C853"
+        android:text="    HEALTHY TIPS"
+        android:textColor="#D50000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491" />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="163dp"
+        android:layout_height="82dp"
+        android:backgroundTint="#FFAB00"
+        android:hint="SIGNUP"
+        android:textColor="#812710"
+        android:textColorHighlight="#E70505"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.89" />
+
+    <!-- Three-lines Button (Menu) -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

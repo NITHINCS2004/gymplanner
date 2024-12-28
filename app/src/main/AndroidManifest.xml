@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GymPlanner"
+        tools:targetApi="31">
+        <activity
+            android:name=".Contact"
+            android:exported="false" />
+        <activity
+            android:name=".DietPlans"
+            android:exported="false" />
+        <activity
+            android:name=".GymSchedule"
+            android:exported="false" />
+        <activity
+            android:name=".Fitness"
+            android:exported="false" />
+
+        <receiver
+            android:name=".ReminderReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".ReminderReceiver"
+            android:exported="false" />
+        <activity
+            android:name=".NutrientReminder"
+            android:exported="false" />
+        <activity
+            android:name=".BMIGraphActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BMICalculator"
+            android:exported="false" />
+        <activity
+            android:name=".Welcome"
+            android:exported="false" />
+        <activity
+            android:name=".SigninActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HealthyTips"
+            android:exported="false" />
+        <activity
+            android:name=".WorkoutPlansActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GymPlannerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

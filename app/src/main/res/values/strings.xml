@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">gym planner</string>
+    <string-array name="reminder_types">
+        <item>Meal Reminder</item>
+        <item>Workout Reminder</item>
+        <item>Water Reminder</item>
+    </string-array>
+    <string name="start_workout">Start Workout</string>
+    <string name="rest">Rest</string>
+    <string name="workout_complete">Workout Complete</string>
+    <string name="exercise_name">Exercise Name</string>
+    <string name="display_image_desc">Exercise/Rest Image</string>
+    <string name="app_logo_desc">App Logo</string>
+    <string name="gym_tracker">Gym Tracker</string>
+    <string-array name="timeoftheday">
+        <item> MORNING </item>
+        <item> AFTERNOON </item>
+        <item> EVENING </item>
+        <item> NIGHT </item>
+    </string-array>
+    <string-array name="time_hours">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="time_minutes">
+        <item>00</item>
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+    </string-array>
+
+    <string-array name="am_pm_options">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
+
+    <string-array name="days_of_week">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+    <string-array name="workout_names">
+        <item>Push-ups</item>
+        <item>Pull-ups</item>
+        <item>Squats</item>
+        <item>Deadlift</item>
+        <item>Bench Press</item>
+    </string-array>
+</resources>

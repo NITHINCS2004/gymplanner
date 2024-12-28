@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Contact">
+
+    <!-- Title for Contact Page -->
+    <TextView
+        android:id="@+id/contact_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Us"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"/>
+
+    <!-- Email Information -->
+    <TextView
+        android:id="@+id/email_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: support@gymplanner.com"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/contact_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"/>
+
+    <!-- Phone Number Information -->
+    <TextView
+        android:id="@+id/phone_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone: +123 456 7890"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/email_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"/>
+
+    <!-- Address Information -->
+    <TextView
+        android:id="@+id/address_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address: 123 Gym Lane, Fit City, Country"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/phone_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"/>
+
+    <!-- Contact Button -->
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Us"
+        app:layout_constraintTop_toBottomOf="@id/address_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
