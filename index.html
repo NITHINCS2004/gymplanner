@@ -1,400 +1,70 @@
-<!--
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slow vs Optimized Loading Metrics</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
+package com.example.gymplanner;
 
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 2.5rem;
-            color: #333;
-        }
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            text-align: center;
-        }
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-        .metrics {
-            margin-top: 20px;
-            background-color: #eaeaea;
-            padding: 15px;
-            border-radius: 10px;
-        }
+import com.google.android.material.chip.Chip;
+import android.widget.Button;
 
-        .metrics h2 {
-            margin-top: 0;
-            color: #333;
-        }
+public class MainActivity extends AppCompatActivity {
 
-        .metrics p {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #555;
-        }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
 
-        #loader {
-            display: block;
-            width: 50px;
-            height: 50px;
-            margin: 50px auto;
-            border: 5px solid #ddd;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+        // Handle window insets for edge-to-edge layout
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
+        // Setup onClick listener for Workout Plans Chip
+        Chip workoutChip = findViewById(R.id.workout);
+        workoutChip.setOnClickListener(v -> {
+            // Redirect to WorkoutPlansActivity
+            Intent intent = new Intent(MainActivity.this, WorkoutPlansActivity.class);
+            startActivity(intent);
+        });
+
+        // Setup onClick listener for Healthy Tips Button
+        Button healthyTipsButton = findViewById(R.id.healthy);  // Ensure this matches the ID in your XML
+        healthyTipsButton.setOnClickListener(v -> {
+            // Redirect to HealthyTipsActivity
+            Intent intent = new Intent(MainActivity.this, HealthyTips.class);
+            startActivity(intent);
+        });
+
+        Button healthyTipsButton1 = findViewById(R.id.diet);  // Ensure this matches the ID in your XML
+        healthyTipsButton1.setOnClickListener(v -> {
+            // Redirect to HealthyTipsActivity
+            Intent intent = new Intent(MainActivity.this, DietPlans.class);
+            startActivity(intent);
+        });
+        Button healthyTipsButton2 = findViewById(R.id.progress);  // Ensure this matches the ID in your XML
+        healthyTipsButton2.setOnClickListener(v -> {
+            // Redirect to HealthyTipsActivity
+            Intent intent = new Intent(MainActivity.this, Contact.class);
+            startActivity(intent);
+        });
+        Button signupButton = findViewById(R.id.signup); // Make sure the ID matches the one in XML
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Redirect to SignUpActivity
+                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .images {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 20px;
-            justify-content: center;
-            overflow-x: auto; /* Enable horizontal scrolling if content overflows */
-            padding-top: 20px;
-        }
-
-        .image-wrapper {
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .image-wrapper img {
-            max-width: 200px; /* Adjust as needed for uniformity */
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .image-wrapper img:hover {
-            transform: scale(1.05);
-        }
-
-        #show-optimized-btn,
-        #techniques-btn {
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        #show-optimized-btn {
-            background-color: #3498db;
-        }
-
-        #show-optimized-btn:hover {
-            background-color: #e65757;
-        }
-
-        #techniques-btn {
-            background-color: #2ecc71;
-        }
-
-        #techniques-btn:hover {
-            background-color: #27ae60;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Slow vs Optimized Loading Metrics</h1>
-
-       
-        <div id="metrics-slow" class="metrics">
-            <h2>Slow Loading Metrics</h2>
-            <p>DOM Content Loaded Time: <span id="dom-slow">Calculating...</span> ms</p>
-            <p>First Contentful Paint (FCP): <span id="fcp-slow">Calculating...</span> ms</p>
-            <p>Largest Contentful Paint (LCP): <span id="lcp-slow">Calculating...</span> ms</p>
-            <p>Cumulative Layout Shift (CLS): <span id="cls-slow">Calculating...</span></p>
-        </div>
-
-        
-        <div id="metrics-optimized" class="metrics hidden">
-            <h2>Optimized Loading Metrics</h2>
-            <p>DOM Content Loaded Time: <span id="dom-optimized">Calculating...</span> ms</p>
-            <p>First Contentful Paint (FCP): <span id="fcp-optimized">Calculating...</span> ms</p>
-            <p>Largest Contentful Paint (LCP): <span id="lcp-optimized">Calculating...</span> ms</p>
-            <p>Cumulative Layout Shift (CLS): <span id="cls-optimized">Calculating...</span></p>
-        </div>
-
-        
-        <button id="show-optimized-btn" class="hidden" onclick="showOptimizedMetrics()">Show Optimized Metrics</button>
-
-       
-        <div id="loading-section">
-            <h2>Image Loading</h2>
-            <div id="loader"></div>
-            <div class="images" id="images"></div>
-            <button id="techniques-btn" class="hidden" onclick="showTechniques()">Show Techniques</button>
-        </div>
-    </div>
-
-    <script>
-        const captureMetrics = (section) => {
-            // Simulate capturing metrics
-            document.getElementById(`dom-${section}`).textContent = "1500";
-            document.getElementById(`fcp-${section}`).textContent = "2000";
-            document.getElementById(`lcp-${section}`).textContent = "2500";
-            document.getElementById(`cls-${section}`).textContent = "0.01";
-        };
-
-        const simulateSlowLoading = () => {
-            setTimeout(() => {
-                const imagesDiv = document.getElementById('images');
-                imagesDiv.innerHTML = `
-                    <div class="image-wrapper"><img src="image1.png" alt="Image 1"></div>
-                    <div class="image-wrapper"><img src="image2.jpg" alt="Image 2"></div>
-                    <div class="image-wrapper"><img src="image3.jpg" alt="Image 3"></div>
-                `;
-                document.getElementById('loader').classList.add('hidden');
-                document.getElementById('techniques-btn').classList.remove('hidden');
-                captureMetrics("slow");
-            }, 3000); // Simulates a 3-second delay
-        };
-
-        const showTechniques = () => {
-            alert("1. Use lazy loading.\n2. Optimize images.\n3. Minify resources.");
-            document.getElementById('show-optimized-btn').classList.remove('hidden');
-        };
-
-        const showOptimizedMetrics = () => {
-            captureMetrics("optimized");
-            document.getElementById('metrics-optimized').classList.remove('hidden');
-        };
-
-        window.onload = simulateSlowLoading;
-    </script>
-</body>
-</html>
--->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slow vs Optimized Loading Metrics</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 2.5rem;
-            color: #333;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .metrics {
-            margin-top: 20px;
-            background-color: #eaeaea;
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .metrics h2 {
-            margin-top: 0;
-            color: #333;
-        }
-
-        .metrics p {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #555;
-        }
-
-        #loader {
-            display: block;
-            width: 50px;
-            height: 50px;
-            margin: 50px auto;
-            border: 5px solid #ddd;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .images {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 20px;
-            justify-content: center;
-            overflow-x: auto; /* Enable horizontal scrolling if content overflows */
-            padding-top: 20px;
-        }
-
-        .image-wrapper {
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .image-wrapper img {
-            max-width: 200px; /* Adjust as needed for uniformity */
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .image-wrapper img:hover {
-            transform: scale(1.05);
-        }
-
-        #show-optimized-btn,
-        #techniques-btn {
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        #show-optimized-btn {
-            background-color: #3498db;
-        }
-
-        #show-optimized-btn:hover {
-            background-color: #e65757;
-        }
-
-        #techniques-btn {
-            background-color: #2ecc71;
-        }
-
-        #techniques-btn:hover {
-            background-color: #27ae60;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Slow vs Optimized Loading Metrics</h1>
-
-        <!-- Slow Loading Metrics -->
-        <div id="metrics-slow" class="metrics">
-            <h2>Slow Loading Metrics</h2>
-            <p>DOM Content Loaded Time: <span id="dom-slow">Calculating...</span> ms</p>
-            <p>First Contentful Paint (FCP): <span id="fcp-slow">Calculating...</span> ms</p>
-            <p>Largest Contentful Paint (LCP): <span id="lcp-slow">Calculating...</span> ms</p>
-            <p>Cumulative Layout Shift (CLS): <span id="cls-slow">Calculating...</span></p>
-        </div>
-
-        <!-- Optimized Loading Metrics -->
-        <div id="metrics-optimized" class="metrics hidden">
-            <h2>Optimized Loading Metrics</h2>
-            <p>DOM Content Loaded Time: <span id="dom-optimized">Calculating...</span> ms</p>
-            <p>First Contentful Paint (FCP): <span id="fcp-optimized">Calculating...</span> ms</p>
-            <p>Largest Contentful Paint (LCP): <span id="lcp-optimized">Calculating...</span> ms</p>
-            <p>Cumulative Layout Shift (CLS): <span id="cls-optimized">Calculating...</span></p>
-        </div>
-
-        <!-- Button to Show Optimized Metrics -->
-        <button id="show-optimized-btn" class="hidden" onclick="showOptimizedMetrics()">Show Optimized Metrics</button>
-
-        <!-- Image Loading Section -->
-        <div id="loading-section">
-            <h2>Image Loading</h2>
-            <div id="loader"></div>
-            <div class="images" id="images"></div>
-            <button id="techniques-btn" class="hidden" onclick="showTechniques()">Show Techniques</button>
-        </div>
-    </div>
-
-    <script>
-        const captureMetrics = (section) => {
-            // Simulate capturing metrics
-            document.getElementById(`dom-${section}`).textContent = "1500";
-            document.getElementById(`fcp-${section}`).textContent = "2000";
-            document.getElementById(`lcp-${section}`).textContent = "2500";
-            document.getElementById(`cls-${section}`).textContent = "0.01";
-        };
-
-        const simulateSlowLoading = () => {
-            setTimeout(() => {
-                const imagesDiv = document.getElementById('images');
-                imagesDiv.innerHTML = `
-                    <div class="image-wrapper"><img src="image1.png" alt="Image 1"></div>
-                    <div class="image-wrapper"><img src="image2.jpg" alt="Image 2"></div>
-                    <div class="image-wrapper"><img src="image3.jpg" alt="Image 3"></div>
-                `;
-                document.getElementById('loader').classList.add('hidden');
-                document.getElementById('techniques-btn').classList.remove('hidden');
-                captureMetrics("slow");
-            }, 3000); // Simulates a 3-second delay
-        };
-
-        const showTechniques = () => {
-            alert("1. Use lazy loading.\n2. Optimize images.\n3. Minify resources.");
-            document.getElementById('show-optimized-btn').classList.remove('hidden');
-        };
-
-        const showOptimizedMetrics = () => {
-            captureMetrics("optimized");
-            document.getElementById('metrics-optimized').classList.remove('hidden');
-        };
-
-        window.onload = simulateSlowLoading;
-    </script>
-</body>
-</html>
+        });
+    }
+}
